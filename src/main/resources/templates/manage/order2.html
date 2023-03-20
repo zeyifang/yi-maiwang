@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>后台管理 - 易买网</title>
+    <link type="text/css" rel="stylesheet" href="/SpringBootShop/css/style.css" />
+    <script type="text/javascript" src="/SpringBootShop/scripts/function-manage.js"></script>
+    <script type="text/javascript">
+        alert("1")
+        if([[${msg}]]=='1'){
+            alert("添加成功");
+        }
+        if([[${msg}]]=='2'){
+            alert("修改成功");
+        }
+        if([[${msg}]]=='3'){
+            alert("删除成功");
+        }
+    </script>
+    <script type="text/javascript">
+        function Delete(DoId) {
+            if(confirm("确认删除吗？")){
+                location.href="/SpringBootShop/dangdangOrder/deleteOrderManage?doId="+DoId;
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="header" class="wrap">
+    <div th:include="header :: header"></div>
+</div>
+<div id="childNav">
+    <div class="welcome wrap">
+        管理员pillys您好，今天是2012-12-21，欢迎回到管理后台。
+    </div>
+</div>
+<div id="position" class="wrap">
+    您现在的位置：<a href="index.html">易买网</a> &gt; 管理后台
+</div>
+<div id="main" class="wrap">
+    <div id="menu-mng" class="lefter">
+        <div th:include="menu-mng :: menu-mng"></div>
+    </div>
+    <div class="main">
+        <h2>订单管理</h2>
+        <div class="manage">
+            <div class="search">
+                <form action="/SpringBootShop/dangdangOrder/queryNumberAndName" method="get">
+                    订单号：<input type="text" class="text" name="doNumber" />
+                    订货人：<input type="text" class="text" name="doUserName"  />
+                    <label class="ui-blue"><input type="submit" name="submit" value="查询" /></label>
+                </form>
+            </div>
+            <div class="spacer"></div>
+            <table class="list">
+                <tr>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>发货地址</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                <tr th:each="Order:${dangdanSelect}">
+                    <td class="first w4 c" th:text="${Order.doId}">1</td>
+                    <td class="w1 c" th:text="${Order.doUserName}">张三丰</td>
+                    <td th:text="${Order.doUserAddress}">高老庄</td>
+                    <td class="w1 c" th:if="${Order.doStatus==1}" >待审核</td>
+                    <td class="w1 c" th:if="${Order.doStatus==2}" >审核通过</td>
+                    <td class="w1 c" th:if="${Order.doStatus==3}" >配货</td>
+                    <td class="w1 c" th:if="${Order.doStatus==4}" >发货</td>
+                    <td class="w1 c" th:if="${Order.doStatus==5}" >收货确认</td>
+                    <td class="w1 c"><a th:href="@{/dangdangOrder/queryOrderByIdManage(doId=${Order.doId})}">修改</a> <a th:href="'javascript:Delete('+${Order.doId}+')'">删除</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="footer">
+    Copyright &copy; 2022 启泰教育 All Rights Reserved. 京ICP证1000008号
+</div>
+</body>
+</html>

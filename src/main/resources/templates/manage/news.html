@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>后台管理 - 易买网</title>
+<link type="text/css" rel="stylesheet" href="/SpringBootShop/css/style.css" />
+<script type="text/javascript" src="/SpringBootShop/scripts/function-manage.js"></script>
+
+	<script type="text/javascript">
+		if([[${msg}]]=='1'){
+			alert("添加成功");
+		}
+		if([[${msg}]]=='2'){
+			alert("修改成功");
+		}
+		if([[${msg}]]=='3'){
+			alert("删除成功");
+		}
+	</script>
+	<script type="text/javascript">
+		function Delete(dnId) {
+			if(confirm("确认删除吗？")){
+				location.href="/SpringBootShop/dangdangNews/deleteMnageById?dnId="+dnId;
+			}
+		}
+	</script>
+</head>
+<body>
+<div id="header" class="wrap">
+	<div th:include="header :: header"></div>
+</div>
+<div id="childNav">
+	<div class="welcome wrap">
+		管理员pillys您好，今天是2012-12-21，欢迎回到管理后台。
+	</div>
+</div>
+<div id="position" class="wrap">
+	您现在的位置：<a href="index.html">易买网</a> &gt; 管理后台
+</div>
+<div id="main" class="wrap">
+	<div id="menu-mng" class="lefter">
+		<div th:include="menu-mng :: menu-mng"></div>
+	</div>
+	<div class="main">
+		<h2>新闻管理</h2>
+		<div class="manage">
+			<table class="list">
+				<tr>
+					<th>ID</th>
+					<th>新闻标题</th>
+					<th>操作</th>
+				</tr>
+				<tr th:each="news:${session.newsListPage}">
+					<td class="first w4 c" th:text="${news.DN_ID}">1</td>
+					<td th:text="${news.DN_TITLE}">高老庄地震了</td>
+					<td class="w1 c"><a th:href="@{/dangdangNews/seletById(dnId=${news.DN_ID})}">修改</a> <a th:href="'javascript:Delete('+${news.DN_ID}+')'">删除</a></td>
+				</tr>
+			</table>
+			<div class="pager">
+				<ul class="clearfix">
+					总页数：[[${page.pages}]]  &nbsp;&nbsp;总条数 [[${page.total}]] &nbsp;&nbsp;   当前页 [[${page.current}]] &nbsp;&nbsp;
+					<a th:href="@{/dangdangNews/queryAllPage(current=1)}">首页</a>
+					<a th:if="${page.current>1}" th:href="@{/dangdangNews/queryAllPage(current=${page.current-1})}">上一页</a>
+					<li class="current" th:each="num:${#numbers.sequence(1,page.pages)}">
+						<a th:href="@{/dangdangNews/queryAllPage(current=${num})}">[[${num}]]</a>
+					</li>
+					<a th:if="${page.current<page.pages}" th:href="@{/dangdangNews/queryAllPage(current=${page.current+1})}">下一页</a>
+					<a th:href="@{/dangdangNews/queryAllPage(current=${page.pages})}">末页</a>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div id="footer">
+	Copyright &copy; 2022 启泰教育 All Rights Reserved. 京ICP证1000008号
+</div>
+</body>
+</html>

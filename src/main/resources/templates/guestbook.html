@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>易买网 - 首页</title>
+<link type="text/css" rel="stylesheet" href="/SpringBootShop/css/style.css" />
+<script type="text/javascript" src="/SpringBootShop/scripts/function.js"></script>
+</head>
+<body>
+<div id="header" class="wrap">
+	<!--引入 top.html-->
+	<div th:include="top :: top"></div>
+</div>
+<div id="childNav">
+	<!--引入 childNav.html-->
+	<div th:include="childNav :: childNav"></div>
+</div>
+<div id="position" class="wrap">
+	您现在的位置：<a href="index.html">易买网</a> &gt; 在线留言
+</div>
+<div id="main" class="wrap">
+	<div class="lefter">
+		<div class="box">
+			<!--引入 lefter.html-->
+			<div th:include="lefter :: lefter"></div>
+		</div>
+	</div>
+	<div class="main">
+		<div class="guestbook">
+			<h2>全部留言</h2>
+			<ul>
+				<li th:each="CommentAll:${session.CommentAll}">
+					<dl>
+						<dt th:text="${CommentAll.DU_CONTENT}">那个什么衣服贵吗</dt>
+						<dd class="author" >网友：[[${CommentAll.DU_comment_NAME}]] <span class="timer" th:text="${CommentAll.DU_CREATE_TIME}">2010:10:10 20:00:01</span></dd>
+						<dd th:text="${CommentAll.DU_answer_content}" >不贵</dd>
+					</dl>
+				</li>
+			</ul>
+			<div class="clear"></div>
+			<div class="pager">
+				<ul class="clearfix">
+					总页数：[[${page.pages}]]  &nbsp;&nbsp;总条数 [[${page.total}]] &nbsp;&nbsp;   当前页 [[${page.current}]] &nbsp;&nbsp;
+					<a th:href="@{/dangdangComment/queryAllComment(current=1)}">首页</a>
+					<a th:if="${page.current>1}" th:href="@{/dangdangComment/queryAllComment(current=${page.current-1})}">上一页</a>
+					<a th:if="${page.current<page.pages}" th:href="@{/dangdangComment/queryAllComment(current=${page.current+1})}">下一页</a>
+					<a th:href="@{/dangdangComment/queryAllComment(current=${page.pages})}">末页</a>
+				</ul>
+			</div>
+			<div id="reply-box">
+				<form action="/SpringBootShop/dangdangComment/addComment">
+					<table>
+						<tr>
+							<td class="field">昵称：</td>
+							<td><input class="text" type="text" name="duCommentName" /></td>
+						</tr>
+						<tr>
+							<td class="field">留言标题：</td>
+							<td><input class="text" type="text" name="duContent" /></td>
+						</tr>
+						<tr>
+							<td class="field">留言内容：</td>
+							<td><textarea name="duAnswerContent"></textarea></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><label class="ui-blue"><input type="submit" name="submit" value="提交留言" /></label></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div id="footer">
+	Copyright &copy; 2022 启泰教育 All Rights Reserved. 京ICP证1000008号
+</div>
+</body>
+</html>

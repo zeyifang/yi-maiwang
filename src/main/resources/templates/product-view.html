@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>易买网 - 首页</title>
+<link type="text/css" rel="stylesheet" href="/SpringBootShop/css/style.css" />
+<script type="text/javascript" src="/SpringBootShop/scripts/function.js"></script>
+
+</head>
+<body>
+<div id="header" class="wrap">
+	<!--引入 top.html-->
+	<div th:include="top :: top"></div>
+</div>
+<div id="childNav">
+	<!--引入 childNav.html-->
+	<div th:include="childNav :: childNav"></div>
+</div>
+<div id="position" class="wrap">
+	您现在的位置：<a href="index.html">易买网</a> &gt; <a href="product-list.html">图书音像</a> &gt; 图书
+</div>
+<div id="main" class="wrap">
+	<div class="lefter">
+		<!--引入 lefter.html-->
+		<div th:include="lefter :: lefter"></div>
+	</div>
+	<div id="product" class="main">
+		<h1 th:text="${product2.dpDescription}">铁三角 Audio-Technica ATH-EQ300M-SV 银色 挂耳式耳机</h1>
+		<div class="infos">
+			<div class="thumb"><img th:src="${path+product2.dpFileName}" height="200" width="200" /></div>
+			<div class="buy">
+				<p>商城价：<span class="price" th:text="${product2.dpPrice}">￥99.00</span></p>
+				<p th:text="${'库存'+product2.dpStock}">库　存：有货</p>
+				<div class="button"><input type="button" name="button" value="" th:onclick="'javascript:goBuy('+${product2.dpId}+')'" /><a th:href="@{/dangdangShopping/addShopping(dpId=${product2.dpId})}">放入购物车</a></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="introduce">
+			<h2><strong>商品详情</strong></h2>
+			<div class="text">
+				sdf<br />
+				sdf<br />
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div id="footer">
+	Copyright &copy; 2022 启泰教育 All Rights Reserved. 京ICP证1000008号
+</div>
+<script type="text/javascript">
+	function goBuy(dpId) {
+		alert("成功加入订单");
+		location.href="/SpringBootShop/dangdangOrder/BuyAndAddOrder?dpId="+dpId;
+	}
+</script>
+</body>
+</html>

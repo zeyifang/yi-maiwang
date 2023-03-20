@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javacto.mapper.DangdangProductCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.javacto.po.DangdangProductCategory">
+        <id column="DPC_ID" property="dpcId" />
+        <result column="DPC_NAME" property="dpcName" />
+        <result column="DPC_PARENT_ID" property="dpcParentId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        DPC_ID, DPC_NAME, DPC_PARENT_ID
+    </sql>
+
+    <select id="queryDpcParentIdBydpcId" parameterType="int" resultType="dangdangProductCategory">
+        SELECT * FROM DANGDANG_PRODUCT_CATEGORY WHERE DPC_PARENT_ID=#{dpcId}
+    </select>
+
+    <insert id="addProductCateManage" parameterType="dangdangProductCategory">
+        INSERT INTO DANGDANG_PRODUCT_CATEGORY(DPC_ID,DPC_NAME,DPC_PARENT_ID) VALUES (#{dpcId},#{dpcName},#{dpcParentId})
+    </insert>
+
+    <select id="selectMaxDpcId" parameterType="int" resultType="int">
+        SELECT MAX(DPC_ID) FROM dangdang_product_category WHERE DPC_PARENT_ID=#{dpcParentId}
+    </select>
+</mapper>

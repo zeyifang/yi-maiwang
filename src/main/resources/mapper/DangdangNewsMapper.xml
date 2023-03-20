@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javacto.mapper.DangdangNewsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.javacto.po.DangdangNews">
+        <id column="DN_ID" property="dnId" />
+        <result column="DN_TITLE" property="dnTitle" />
+        <result column="DN_CONTENT" property="dnContent" />
+        <result column="DN_CREATE_TIME" property="dnCreateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        DN_ID, DN_TITLE, DN_CONTENT, DN_CREATE_TIME
+    </sql>
+
+    <update id="updateManage" parameterType="dangdangNews">
+        UPDATE dangdang_news SET DN_TITLE=#{dnTitle},DN_CONTENT=#{dnContent},DN_CREATE_TIME=#{dnCreateTime} WHERE DN_ID=#{dnId}
+    </update>
+
+</mapper>

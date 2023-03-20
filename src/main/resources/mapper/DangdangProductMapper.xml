@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javacto.mapper.DangdangProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.javacto.po.DangdangProduct">
+        <id column="DP_ID" property="dpId" />
+        <result column="DP_NAME" property="dpName" />
+        <result column="DP_DESCRIPTION" property="dpDescription" />
+        <result column="DP_PRICE" property="dpPrice" />
+        <result column="DP_STOCK" property="dpStock" />
+        <result column="DPC_CHILD_ID" property="dpcChildId" />
+        <result column="DP_FILE_NAME" property="dpFileName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        DP_ID, DP_NAME, DP_DESCRIPTION, DP_PRICE, DP_STOCK, DPC_CHILD_ID, DP_FILE_NAME
+    </sql>
+
+    <select id="queryAll" resultMap="BaseResultMap">
+        SELECT * FROM dangdang_product
+    </select>
+    <select id="queryAllBydpcChildId" parameterType="int" resultMap="BaseResultMap">
+        SELECT * FROM dangdang_product
+        <where>
+            <if test="dpcParentId!=null">
+                DPC_CHILD_ID IN(SELECT DPC_ID FROM dangdang_product_category WHERE DPC_PARENT_ID = #{dpcParentId})
+            </if>
+            <if test="product!=null">
+                <if test="product.dpcChildId>0">
+                    DPC_CHILD_ID= #{product.dpcChildId}
+                </if>
+
+            </if>
+        </where>
+    </select>
+
+    <update id="updateProductManage" parameterType="dangdangProduct">
+        UPDATE dangdang_product SET DP_NAME=#{dpName},DP_DESCRIPTION=#{dpDescription},DP_PRICE=#{dpPrice},DP_STOCK=#{dpStock},DPC_CHILD_ID=#{dpcChildId},DP_FILE_NAME=#{dpFileName} WHERE DP_ID=#{dpId}
+    </update>
+
+</mapper>

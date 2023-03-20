@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="top">
+<div id="logo"><img src="/SpringBootShop/images/logo.gif" /></div>
+<div class="help"><a th:href="@{/dangdangShopping/queryAllByUserId}" class="shopping">购物车</a><a th:href="@{/Login/goLogin}">登录</a><a th:href="@{/Login/goRegister}">注册</a><a th:href="@{/dangdangComment/queryAllComment}">留言</a></div>
+<div class="navbar">
+    <ul class="clearfix">
+        <li class="current"><a th:href="@{/dangdangProductCategory/queryAll}">首页</a></li>
+        <li th:each="productCate:${session.produceCategoryList}">
+            <a th:if="${productCate.dpcParentId==0}" th:href="@{/dangdangProduct/queryAllBydpcChildId/(dpcParentId=${productCate.dpcId})}">[[${productCate.dpcName}]]</a>
+        </li>
+    </ul>
+</div>
+</div>
+
+</body>
+</html>

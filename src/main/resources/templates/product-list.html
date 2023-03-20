@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>易买网 - 首页</title>
+<link type="text/css" rel="stylesheet" href="/SpringBootShop/css/style.css" />
+<script type="text/javascript" src="/SpringBootShop/scripts/function.js"></script>
+</head>
+<body>
+<div id="header" class="wrap">
+	<!--引入 top.html-->
+	<div th:include="top :: top"></div>
+</div>
+<div id="childNav">
+	<!--引入 childNav.html-->
+	<div th:include="childNav :: childNav"></div>
+</div>
+<div id="position" class="wrap">
+	您现在的位置：<a href="index.html">易买网</a> &gt; <a href="product-list.html">图书音像</a> &gt; 图书
+</div>
+<div id="main" class="wrap">
+	<div class="lefter">
+		<!--引入 lefter.html-->
+		<div th:include="lefter :: lefter"></div>
+		<div class="spacer"></div>
+		<div class="last-view">
+			<h2>最近浏览</h2>
+			<dl class="clearfix">
+				<dt><img src="/SpringBootShop/images/product/0_tiny.gif" /></dt>
+				<dd><a href="product-view.html">法国德菲丝松露精品巧克力500g/盒</a></dd>
+				<dt><img src="/SpringBootShop/images/product/0_tiny.gif" /></dt>
+				<dd><a href="product-view.html">法国德菲丝松露精品巧克力500g/盒</a></dd>
+			</dl>
+			<script type="text/javascript">
+				document.write("Cookie中记录的购物车商品ID："+ getCookie("product") + "，可以在动态页面中进行读取");
+			</script>
+		</div>
+	</div>
+	<div class="main">
+		<div class="product-list">
+			<h2>全部商品</h2>
+			<div class="pager">
+				<ul class="clearfix">
+					<li><a th:href="@{/dangdangProduct/queryAllBydpcChildId(current=1,product=${product},dpcChildId=${dpcChildId})}">首页</a></li>
+					<li><a th:if="${page.current>1}" th:href="@{/dangdangProduct/queryAllBydpcChildId(current=${page.current-1},product=${product},dpcChildId=${dpcChildId})}">上一页</a></li>
+					<li class="current" th:each="num:${#numbers.sequence(1,page.pages)}">
+						<a th:href="@{/dangdangProduct/queryAllBydpcChildId(current=${num},product=${product},dpcChildId=${dpcChildId})}">[[${num}]]</a>
+					</li>
+					<li><a th:if="${page.current<page.pages}" th:href="@{/dangdangProduct/queryAllBydpcChildId(current=${page.current+1},product=${product},dpcChildId=${dpcChildId})}">下一页</a></li>
+					<li><a th:href="@{/dangdangProduct/queryAllBydpcChildId(current=${page.pages},product=${product},dpcChildId=${dpcChildId})}">末页</a></li>
+					总页数：[[${page.pages}]]  &nbsp;&nbsp;总条数 [[${page.total}]] &nbsp;&nbsp;   当前页 [[${page.current}]] &nbsp;&nbsp;
+				</ul>
+			</div>
+			<div class="clear"></div>
+			<ul class="product clearfix">
+				<li th:each="product1:${productList}">
+					<dl>
+						<dt><a th:href="@{/dangdangProduct/product-view.html(dpId=${product1.dpId})}" target="_blank"><img th:src="${path+product1.dpFileName}" /></a></dt>
+						<dd class="title"><a  th:href="@{/dangdangProduct/product-view.html(dpId=${product1.dpId})}" target="_blank">[[${product1.dpName}]]</a></dd>
+						<dd class="price">[[${product1.dpPrice}]]</dd>
+					</dl>
+				</li>
+			</ul>
+			<div class="clear"></div>
+			<div class="pager">
+				<ul class="clearfix">
+                    总页数：[[${page.pages}]]  &nbsp;&nbsp;总条数 [[${page.total}]] &nbsp;&nbsp;   当前页 [[${page.current}]] &nbsp;&nbsp;
+                    <li><a th:href="@{/dangdangProduct/queryAllBydpcChildId(current=1,product=${product},dpcChildId=${dpcChildId})}">首页</a></li>
+					<li class="current" th:each="num:${#numbers.sequence(1,page.pages)}">
+						<a th:href="@{/dangdangProduct/queryAllBydpcChildId(current=${num},product=${product},dpcChildId=${dpcChildId})}">[[${num}]]</a>
+					</li>
+                    <li><a th:if="${page.current<page.pages}" th:href="@{/dangdangProduct/queryAllBydpcChildId(current=${page.current+1},product=${product},dpcChildId=${dpcChildId})}">下一页</a></li>
+                    <li><a th:href="@{/dangdangProduct/queryAllBydpcChildId(current=${page.pages},product=${product},dpcChildId=${dpcChildId})}">末页</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<div id="footer">
+	Copyright &copy; 2022 启泰教育 All Rights Reserved. 京ICP证1000008号
+</div>
+</body>
+</html>

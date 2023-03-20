@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javacto.mapper.DangdangOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.javacto.po.DangdangOrder">
+        <id column="DO_ID" property="doId" />
+        <result column="DO_Number" property="doNumber" />
+        <result column="DO_USER_ID" property="doUserId" />
+        <result column="DO_USER_NAME" property="doUserName" />
+        <result column="DO_USER_TEL" property="doUserTel" />
+        <result column="DO_USER_ADDRESS" property="doUserAddress" />
+        <result column="DO_COST" property="doCost" />
+        <result column="DO_CREATE_TIME" property="doCreateTime" />
+        <result column="DO_STATUS" property="doStatus" />
+        <result column="DO_TYPE" property="doType" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        DO_ID, DO_Number, DO_USER_ID, DO_USER_NAME, DO_USER_TEL, DO_USER_ADDRESS, DO_COST, DO_CREATE_TIME, DO_STATUS, DO_TYPE
+    </sql>
+
+    <update id="updateOrderManage" parameterType="dangdangOrder">
+        UPDATE dangdang_order SET DO_USER_ID=#{doUserId},DO_USER_NAME=#{doUserName},DO_USER_TEL=#{doUserTel},DO_USER_ADDRESS=#{doUserAddress},DO_STATUS=#{doStatus},DO_CREATE_TIME=#{doCreateTime} WHERE DO_ID=#{doId}
+    </update>
+
+    <select id="queryNumberAndName" parameterType="dangdangOrder" resultMap="BaseResultMap">
+        SELECT * FROM  dangdang_order WHERE DO_USER_NAME LIKE "%"#{doUserName}"%" AND DO_Number LIKE "%"#{doNumber}"%"
+    </select>
+
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javacto.mapper.DangdangUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.javacto.po.DangdangUser">
+        <id column="Du_user_id" property="duUserId" />
+        <result column="DU_EMAIL" property="duEmail" />
+        <result column="DU_USER_NAME" property="duUserName" />
+        <result column="DU_PASSWORD" property="duPassword" />
+        <result column="DU_SEX" property="duSex" />
+        <result column="DU_BIRTHDAY" property="duBirthday" />
+        <result column="DU_IDENTITY_CODE" property="duIdentityCode" />
+        <result column="DU_MOBILE" property="duMobile" />
+        <result column="DU_createtime" property="duCreatetime" />
+        <result column="DU_createuser" property="duCreateuser" />
+        <result column="DU_updatetime" property="duUpdatetime" />
+        <result column="DU_updateuser" property="duUpdateuser" />
+        <result column="DU_STATUS" property="duStatus" />
+        <result column="DU_new1" property="duNew1" />
+        <result column="DU_new2" property="duNew2" />
+        <result column="DU_new3" property="duNew3" />
+        <result column="DU_new4" property="duNew4" />
+        <result column="DU_new5" property="duNew5" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        Du_user_id, DU_EMAIL, DU_USER_NAME, DU_PASSWORD, DU_SEX, DU_BIRTHDAY, DU_IDENTITY_CODE, DU_MOBILE, DU_createtime, DU_createuser, DU_updatetime, DU_updateuser, DU_STATUS, DU_new1, DU_new2, DU_new3, DU_new4, DU_new5
+    </sql>
+
+
+    <select id="checkNameAndPwd" parameterType="dangdangUser" resultMap="BaseResultMap">
+        SELECT * FROM  dangdang_user WHERE DU_USER_NAME=#{duUserName} AND DU_PASSWORD=#{duPassword}
+    </select>
+
+    <update id="updateByUsrId" parameterType="dangdangUser">
+        UPDATE dangdang_user SET DU_USER_NAME=#{duUserName},DU_PASSWORD=#{duPassword},DU_SEX=#{duSex},DU_EMAIL=#{duEmail},DU_MOBILE=#{duMobile},DU_ADDRESS=#{duAddress},DU_new3=#{duNew3} WHERE Du_user_id=#{duUserId}
+    </update>
+</mapper>

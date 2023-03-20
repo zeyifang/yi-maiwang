@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="menu-mng">
+    <div class="box">
+        <dl>
+            <dt>用户管理</dt>
+            <dd><em><a th:href="@{/dangdangUser/goUser-add}">新增</a></em><a th:href="@{/dangdangUser/queryUserManger}">用户管理</a></dd>
+            <dt>商品信息</dt>
+            <dd><em><a th:href="@{/dangdangProductCategory/goAddProductCateManage}">新增</a></em><a th:href="@{/dangdangProductCategory/queryAllByManage}">分类管理</a></dd>
+            <dd><em><a th:href="@{/dangdangProduct/goAddProductManage}">新增</a></em><a th:href="@{/dangdangProduct/queryAllPage}">商品管理</a></dd>
+            <dt>订单管理</dt>
+            <dd><a th:href="@{/dangdangOrder/queryAllOrderPage}">订单管理</a></dd>
+            <dt>留言管理</dt>
+            <dd><a th:href="@{/dangdangComment/queryAllPage}">留言管理</a></dd>
+            <dt>新闻管理</dt>
+            <dd><em><a th:href="@{/dangdangNews/goAddManage}">新增</a></em><a th:href="@{/dangdangNews/queryAllPage}">新闻管理</a></dd>
+        </dl>
+    </div>
+</div>
+</body>
+</html>

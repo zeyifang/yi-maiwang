@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javacto.mapper.DangdangCommentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.javacto.po.DangdangComment">
+        <id column="DU_ID" property="duId" />
+        <result column="DP_ID" property="dpId" />
+        <result column="DU_comment_NAME" property="duCommentName" />
+        <result column="DU_CONTENT" property="duContent" />
+        <result column="DU_answer_content" property="duAnswerContent" />
+        <result column="DU_CREATE_TIME" property="duCreateTime" />
+        <result column="DU_reply_TIME" property="duReplyTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        DU_ID, DP_ID, DU_comment_NAME, DU_CONTENT, DU_answer_content, DU_CREATE_TIME, DU_reply_TIME
+    </sql>
+
+    <select id="queryCommentAllPage" parameterType="dangdangComment" resultMap="BaseResultMap">
+        SELECT * FROM  dangdang_comment
+    </select>
+
+    <update id="updateCommentManage" parameterType="dangdangComment">
+        UPDATE dangdang_comment SET DU_answer_content=#{duAnswerContent} WHERE DU_ID=#{duId}
+    </update>
+</mapper>

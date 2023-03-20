@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="lefter">
+<div class="box">
+    <h2>商品分类</h2>
+    <dl th:each="productCate:${session.produceCategoryList}">
+        <dt th:if="${productCate.dpcParentId==0}">[[${productCate.dpcName}]]</dt>
+        <dd><a th:if="${productCate.dpcParentId!=0}"  th:href="@{/dangdangProduct/queryAllBydpcChildId/(dpcChildId=${productCate.dpcId})}" >[[${productCate.dpcName}]]</a></dd>
+    </dl>
+</div>
+</div>
+</body>
+</html>

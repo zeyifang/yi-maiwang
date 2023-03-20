@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>易买网 - 首页</title>
+<link type="text/css" rel="stylesheet" href="/SpringBootShop/css/style.css" />
+<script type="text/javascript" src="/SpringBootShop/scripts/function.js"></script>
+<script type="text/javascript" src="/SpringBootShop/js/jquery-3.2.1.min.js"	></script>
+</head>
+<body>
+<div id="header" class="wrap">
+	<!--引入 top.html-->
+	<div th:include="top :: top"></div>
+</div>
+<div id="childNav">
+	<!--引入 childNav.html-->
+	<div th:include="childNav :: childNav"></div>
+</div>
+<div id="position" class="wrap">
+	您现在的位置：<a href="index.html">易买网</a> &gt; 购物车
+</div>
+<div class="wrap">
+	<div id="shopping">
+		<form action="shopping-result.html">
+			<table>
+				<tr>
+					<th>商品名称</th>
+					<th>商品价格</th>
+					<th>购买数量</th>
+					<th>操作</th>
+				</tr>
+				<tr id="product_id_1" th:each="shopping:${session.shopping}">
+					<td class="thumb"><img th:src="${path+shopping.Product.dpFileName}" width="100" height="100"/><a href="product-view.html" th:text="${shopping.Product.dpName}">[[{shopping.product.dpName}]]</a></td>
+					<td class="price" id="price_id_1">
+						<span th:text="${shopping.dodCost}">￥99.00</span>
+						<input type="hidden" value="99" />
+					</td>
+					<td class="number">
+						<dl>
+							<input th:if="${shopping.dodQuantity==1}" type="button" value="-" readonly="readonly"/>
+							<input th:if="${shopping.dodQuantity!=1}" type="button" value="-" th:onclick="'javascript:updateQuantity('+${shopping.dpId}+','+${shopping.dodQuantity-1}+')'"/>
+							<dt><input id="number_id_1" type="text" name="number" th:value="${shopping.dodQuantity}" th:onblur="'javascript:updateQuantity('+${shopping.dpId}+',this.value)'"/></dt>
+							<input  type="button" value="+"  th:onclick="'javascript:updateQuantity('+${shopping.dpId}+','+${shopping.dodQuantity+1}+')'"/>
+						</dl>
+					</td>
+					<td class="delete"><a th:href="@{/dangdangShopping/deleteShopping(dpId=${shopping.dpId})}">删除</a></td>
+				</tr>
+			</table>
+			<div class="button"><input type="submit" value="" /></div>
+		</form>
+	</div>
+	<script type="text/javascript">
+		function updateQuantity(dpId,dodQuantity) {
+			location.href="/SpringBootShop/dangdangShopping/updateShopping?dpId="+dpId+"&dodQuantity="+dodQuantity;
+		}
+	</script>
+	<script type="text/javascript">
+		document.write("Cookie中记录的购物车商品ID："+ getCookie("product") + "，可以在动态页面中进行读取");
+	</script>
+</div>
+<div id="footer">
+	Copyright &copy; 2022 启泰教育 All Rights Reserved. 京ICP证1000008号
+</div>
+</body>
+</html>

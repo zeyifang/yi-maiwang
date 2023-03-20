@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="header">
+    <div id="logo"><img src="/SpringBootShop/images/logo.gif" /></div>
+    <div class="help"><a th:href="@{/dangdangProductCategory/queryAll}">返回前台页面</a></div>
+    <div class="navbar">
+        <ul class="clearfix">
+            <li><a href="index.html">首页</a></li>
+            <li><a th:href="@{/dangdangUser/queryUserManger}">用户</a></li>
+            <li class="current"><a href="product.html">商品</a></li>
+            <li><a href="order.html">订单</a></li>
+            <li><a href="guestbook.html">留言</a></li>
+            <li><a href="news.html">新闻</a></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javacto.mapper.DangdangShoppingMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.javacto.po.DangdangShopping">
+        <id column="DOD_ID" property="dodId" />
+        <result column="DO_USER_ID" property="doUserId" />
+        <result column="DP_ID" property="dpId" />
+        <result column="DOD_QUANTITY" property="dodQuantity" />
+        <result column="DOD_COST" property="dodCost" />
+        <result column="DO_STATE" property="doState" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        DOD_ID, DO_USER_ID, DP_ID, DOD_QUANTITY, DOD_COST, DO_STATE
+    </sql>
+
+    <resultMap id="BaseResultMap2" type="com.javacto.po.DangdangShopping">
+        <id column="DOD_ID" property="dodId" />
+        <result column="DO_USER_ID" property="doUserId" />
+        <result column="DP_ID" property="dpId" />
+        <result column="DOD_QUANTITY" property="dodQuantity" />
+        <result column="DOD_COST" property="dodCost" />
+        <result column="DO_STATE" property="doState" />
+        <association property="Product" javaType="com.javacto.po.DangdangProduct">
+            <id column="DP_ID" property="dpId"/>
+            <result column="DP_NAME" property="dpName" />
+            <result column="DP_DESCRIPTION" property="dpDescription" />
+            <result column="DP_PRICE" property="dpPrice" />
+            <result column="DP_STOCK" property="dpStock" />
+            <result column="DPC_CHILD_ID" property="dpcChildId" />
+            <result column="DP_FILE_NAME" property="dpFileName" />
+        </association>
+    </resultMap>
+    <select id="queryByDoUserId" parameterType="int" resultMap="BaseResultMap2">
+        SELECT * FROM dangdang_shopping s,dangdang_product p WHERE DO_USER_ID=#{doUserId} AND s.DP_ID = p.DP_ID
+    </select>
+
+    <update id="updateIdAndQuantity" parameterType="com.javacto.po.DangdangShopping">
+        UPDATE dangdang_shopping SET DOD_QUANTITY=#{dodQuantity},DOD_COST=#{dodCost} WHERE DP_ID=#{dpId}
+    </update>
+
+    <insert id="insertShopping" parameterType="com.javacto.po.DangdangShopping">
+        INSERT INTO dangdang_shopping(DO_USER_ID,DP_ID,DOD_QUANTITY,DOD_COST,DO_STATE) VALUES(#{doUserId},#{dpId},#{dodQuantity},#{dodCost},#{doState})
+    </insert>
+
+    <delete id="deleteShopping" parameterType="int">
+        DELETE FROM dangdang_shopping WHERE DP_ID=#{dpId}
+    </delete>
+
+    <select id="selectAll" resultMap="BaseResultMap2">
+        SELECT * FROM dangdang_shopping s,dangdang_product p WHERE s.DP_ID = p.DP_ID
+    </select>
+
+ </mapper>
